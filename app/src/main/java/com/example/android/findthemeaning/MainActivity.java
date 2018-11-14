@@ -91,15 +91,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-
-            try {
-                JSONObject json = new JSONObject(result);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
             Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
             intent.putExtra("key",result);
             startActivity(intent);
