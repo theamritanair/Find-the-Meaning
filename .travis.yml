@@ -1,27 +1,27 @@
 sudo: false
+
 language: android
-jdk: oraclejdk8
-env:
-  global:
-    - ANDROID_TARGET=android-15
-    - ANDROID_ABI=armeabi-v7a
 android:
   components:
-  - tools
-  - platform-tools
-  - build-tools-23.0.3
-  - android-23
-  - extra-android-m2repository
-  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+    # The BuildTools version used by your project
+    - build-tools-28.0.3
+    # The SDK version used to compile your project
+    - android-28
+    - android-22
+    - sys-img-armeabi-v7a-android-22
+    
+before_install:
+  - yes | sdkmanager "platforms;android-28"
+
 script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - ./gradlew connectedCheck
+   - ./gradlew build connectedCheck
+   - ./gradlew build jacocoTestReport
 
+before_script:
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
-
-script: "mvn cobertura:cobertura"
-
-after_success:
+after_success: 
   - bash <(curl -s https://codecov.io/bash)
