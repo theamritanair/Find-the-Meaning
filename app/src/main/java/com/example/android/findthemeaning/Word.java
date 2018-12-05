@@ -17,6 +17,11 @@ public class Word {
         this.audiomp3 = audiomp3;
     }
 
+    @Override
+    public String toString(){
+        return "Word: "+ word +"\ndefinition:" + defintion +"\n Category: "+category +"\n audiomp3" +audiomp3+"";
+    }
+
 
 
 
