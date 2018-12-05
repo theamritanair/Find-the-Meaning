@@ -6,7 +6,7 @@
 This is an open source dictionary which shows the meaning of the word searched. 
 
 ## API 
-This application used the Oxford Dictionaries API. You can refer to the [documentation] (https://developer.oxforddictionaries.com/documentation) here.
+This application used the Oxford Dictionaries API. You can refer to the [documentation](https://developer.oxforddictionaries.com/documentation) here.
 
 
 
