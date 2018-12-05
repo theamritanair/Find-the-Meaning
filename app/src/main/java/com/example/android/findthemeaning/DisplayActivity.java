@@ -2,8 +2,12 @@ package com.example.android.findthemeaning;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,38 +28,23 @@ public class DisplayActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        display.setMovementMethod(new ScrollingMovementMethod());
+
         Bundle bun = getIntent().getExtras();
 
         String jsonString = bun.getString("key");
 
-        JSONObject jsonObject = null;
-        JSONArray result = null;
-       try{
-            jsonObject = new JSONObject(jsonString);
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
+        display.setText(""+jsonString);
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+
+        Gson gson = gsonBuilder.create();
+        Word word = gson.fromJson(String.valueOf(jsonString),Word.class);
+
+        Log.i("Word classs",word.toString());
 
 
-        try {
-            result = jsonObject.getJSONArray("results");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-//        JSON json = fromStringToJSON(jsonString);
-//
-//        if(json.obj==null){
-//
-//            if(json.isJsonArray) {
-//                JSONArray jsonArray = (JSONArray) json.obj;
-//            }else{
-//                JSONObject jsonObj = (JSONObject) json.obj;
-//            }
-//        }
 
 
     }
