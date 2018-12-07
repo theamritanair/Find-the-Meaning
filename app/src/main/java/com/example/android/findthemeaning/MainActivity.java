@@ -1,23 +1,23 @@
 package com.example.android.findthemeaning;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
-import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import javax.net.ssl.HttpsURLConnection;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.searchButton)
     Button searchButton;
 
+    // Enable double press
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 new CallbackTask().execute(dictionaryEntries());
             }
         });
-
-
 
 
     }
@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 URL url = new URL(params[0]);
                 HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Accept","application/json");
-                urlConnection.setRequestProperty("app_id",app_id);
-                urlConnection.setRequestProperty("app_key",app_key);
+                urlConnection.setRequestProperty("Accept", "application/json");
+                urlConnection.setRequestProperty("app_id", app_id);
+                urlConnection.setRequestProperty("app_key", app_key);
 
                 // read the output from the server
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -81,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
                 return stringBuilder.toString();
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return e.toString();
             }
@@ -92,10 +91,26 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-            intent.putExtra("key",result);
+            intent.putExtra("key", result);
             startActivity(intent);
 
             System.out.println(result);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+        } else {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
