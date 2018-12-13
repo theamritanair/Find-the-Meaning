@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
                             .show();
                 }
+                else if(res=="No input"){
+                    Toast.makeText(getApplicationContext(), "Please enter a word", Toast.LENGTH_SHORT)
+                            .show();
+                }
                 else
                     new CallbackTask().execute(res);
             }
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private String dictionaryEntries() {
         final String language = "en";
         final String word = searchArea.getText().toString();
+        if(TextUtils.isEmpty(word))
+            return "No input";
         final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
         for(int i=0;i<word_id.length();++i){
             if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
