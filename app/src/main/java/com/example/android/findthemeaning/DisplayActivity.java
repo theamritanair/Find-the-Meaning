@@ -59,16 +59,18 @@ public class DisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display);
 
         context = this;
-        bun = getIntent().getExtras();
-
-        word_id = bun.getString("key");
-        entriesList = (RecyclerView) findViewById(R.id.entries);
-
         try {
-            naacho();
-        }catch(Exception e) {
+            bun = getIntent().getExtras();
+
+            word_id = bun.getString("key");
+        }catch (Exception e){
             e.printStackTrace();
         }
+        entriesList = (RecyclerView) findViewById(R.id.entries);
+
+
+            naacho();
+
     }
 
     public void naacho(){
@@ -78,18 +80,18 @@ public class DisplayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Exa> call, retrofit2.Response<Exa> response) {
 
-
-
                 Exa info = response.body();
-                final Result result = info.getResults().get(0);
+                Result result = info.getResults().get(0);
                 Log.i("KEY",bun.getString("key"));
                 Log.i("LEXICAL ENTRIES", Arrays.asList(result.getLexicalEntries()).toString());
+
+                adapter = new WordAdapter(result.getLexicalEntries(), context, word_id);
 
                 Handler handler = new Handler();
 
                 handler.post(new Runnable() {
                     public void run() {
-                        adapter = new WordAdapter(result.getLexicalEntries(), context, word_id);
+
                         entriesList.setAdapter(adapter);
                     }
                 });

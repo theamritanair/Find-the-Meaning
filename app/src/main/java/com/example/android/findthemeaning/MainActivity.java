@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,24 +39,41 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-
-
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 word = searchArea.getText().toString();
 
-                Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                intent.putExtra("key",word);
-                startActivity(intent);
-
-
+                if(isASpecialCharacter(word)){
+                    Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+                    intent.putExtra("key",word);
+                    startActivity(intent);
+                }
 //                new CallbackTask().execute(dictionaryEntries());
             }
         });
+    }
 
 
-
+    public boolean isASpecialCharacter(String word){
+        int flag= 1;
+        for(int i=0;i<word.length();++i){
+            if(word.charAt(i)<97 || word.charAt(i)>122) {
+                flag=0;
+            }
+            else {
+                flag =1;
+            }
+        }
+        if(flag==0){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 

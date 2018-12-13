@@ -33,7 +33,7 @@ public class Sense {
     private List<Subsense> subsenses = null;
     @SerializedName("thesaurusLinks")
     @Expose
-    private List<com.example.android.findthemeaning.model.ThesaurusLink> thesaurusLinks = null;
+    private List<ThesaurusLink> thesaurusLinks = null;
     @SerializedName("regions")
     @Expose
     private List<String> regions = null;

@@ -18,7 +18,7 @@ public class Entry {
     private String homographNumber;
     @SerializedName("senses")
     @Expose
-    private List<com.example.android.findthemeaning.model.Sense> senses = null;
+    private List<Sense> senses = null;
 
     public List<String> getEtymologies() {
         return etymologies;
