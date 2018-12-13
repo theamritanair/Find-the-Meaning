@@ -3,6 +3,7 @@ package com.example.android.findthemeaning;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,19 +40,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new CallbackTask().execute(dictionaryEntries());
+                String res = dictionaryEntries();
+                if(res=="false"){
+                    Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else
+                    new CallbackTask().execute(res);
             }
         });
-
-
-
-
     }
 
     private String dictionaryEntries() {
         final String language = "en";
         final String word = searchArea.getText().toString();
         final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
+        for(int i=0;i<word_id.length();++i){
+            if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
+                return "false";
+            }
+        }
         return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
     }
 
