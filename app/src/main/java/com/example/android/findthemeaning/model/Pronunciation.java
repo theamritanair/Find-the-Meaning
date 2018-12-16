@@ -52,4 +52,13 @@ public class Pronunciation {
         this.phoneticSpelling = phoneticSpelling;
     }
 
+    @Override
+    public String toString() {
+        return "Pronunciation{" +
+                "audioFile='" + audioFile + '\'' +
+                ", dialects=" + dialects +
+                ", phoneticNotation='" + phoneticNotation + '\'' +
+                ", phoneticSpelling='" + phoneticSpelling + '\'' +
+                '}';
+    }
 }

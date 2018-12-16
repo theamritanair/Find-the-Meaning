@@ -18,4 +18,10 @@ public class Metadata {
         this.provider = provider;
     }
 
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                "provider='" + provider + '\'' +
+                '}';
+    }
 }

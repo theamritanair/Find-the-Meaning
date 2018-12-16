@@ -29,4 +29,11 @@ public class GrammaticalFeature {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "GrammaticalFeature{" +
+                "text='" + text + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

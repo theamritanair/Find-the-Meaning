@@ -29,4 +29,11 @@ public class Note {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Note{" +
+                "text='" + text + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -110,4 +110,18 @@ public class Sense {
         this.regions = regions;
     }
 
+    @Override
+    public String toString() {
+        return "Sense{" +
+                "definitions=" + definitions +
+                ", domains=" + domains +
+                ", examples=" + examples +
+                ", id='" + id + '\'' +
+                ", shortDefinitions=" + shortDefinitions +
+                ", registers=" + registers +
+                ", subsenses=" + subsenses +
+                ", thesaurusLinks=" + thesaurusLinks +
+                ", regions=" + regions +
+                '}';
+    }
 }

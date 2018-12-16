@@ -30,4 +30,11 @@ public class Exa {
         this.results = results;
     }
 
+    @Override
+    public String toString() {
+        return "Exa{" +
+                "metadata=" + metadata +
+                ", results=" + results +
+                '}';
+    }
 }

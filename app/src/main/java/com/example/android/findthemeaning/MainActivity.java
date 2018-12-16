@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button searchButton;
 
 
-    String word;
+    private String word;
 
 
     @Override

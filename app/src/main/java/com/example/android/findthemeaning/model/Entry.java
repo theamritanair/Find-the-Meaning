@@ -52,4 +52,13 @@ public class Entry {
         this.senses = senses;
     }
 
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "etymologies=" + etymologies +
+                ", grammaticalFeatures=" + grammaticalFeatures +
+                ", homographNumber='" + homographNumber + '\'' +
+                ", senses=" + senses +
+                '}';
+    }
 }

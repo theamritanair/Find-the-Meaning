@@ -63,4 +63,14 @@ public class Result {
         this.word = word;
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id='" + id + '\'' +
+                ", language='" + language + '\'' +
+                ", lexicalEntries=" + lexicalEntries +
+                ", type='" + type + '\'' +
+                ", word='" + word + '\'' +
+                '}';
+    }
 }

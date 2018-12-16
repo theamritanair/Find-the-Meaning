@@ -88,4 +88,17 @@ public class Subsense {
         this.notes = notes;
     }
 
+
+    @Override
+    public String toString() {
+        return "Subsense{" +
+                "definitions=" + definitions +
+                ", domains=" + domains +
+                ", examples=" + examples +
+                ", id='" + id + '\'' +
+                ", shortDefinitions=" + shortDefinitions +
+                ", registers=" + registers +
+                ", notes=" + notes +
+                '}';
+    }
 }

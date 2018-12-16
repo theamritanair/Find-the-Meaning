@@ -29,4 +29,11 @@ public class ThesaurusLink {
         this.senseId = senseId;
     }
 
+    @Override
+    public String toString() {
+        return "ThesaurusLink{" +
+                "entryId='" + entryId + '\'' +
+                ", senseId='" + senseId + '\'' +
+                '}';
+    }
 }

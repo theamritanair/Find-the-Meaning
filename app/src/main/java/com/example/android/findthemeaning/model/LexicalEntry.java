@@ -63,4 +63,14 @@ public class LexicalEntry {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "LexicalEntry{" +
+                "entries=" + entries +
+                ", language='" + language + '\'' +
+                ", lexicalCategory='" + lexicalCategory + '\'' +
+                ", pronunciations=" + pronunciations +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

@@ -30,4 +30,11 @@ public class Example {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "Example{" +
+                "registers=" + registers +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

@@ -18,4 +18,10 @@ public class Example_ {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "Example_{" +
+                "text='" + text + '\'' +
+                '}';
+    }
 }

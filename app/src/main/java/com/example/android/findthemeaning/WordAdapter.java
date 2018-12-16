@@ -43,13 +43,13 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordView wordView, int i) {
+    public void onBindViewHolder(@NonNull WordView wordView, int position) {
 
-        LexicalEntry lexicalEntry = lexicalEntries.get(i);
+        LexicalEntry lexicalEntry = lexicalEntries.get(position);
         Entry entry = lexicalEntry.getEntries().get(0);
 
-        Pronunciation pronunciation = lexicalEntry.getPronunciations().get(i);
-        String audio = pronunciation.getAudioFile();
+        //Pronunciation pronunciation = lexicalEntry.getPronunciations().get(0);
+        //String audio = pronunciation.getAudioFile();
 
         Sense sense = entry.getSenses().get(0);
 
