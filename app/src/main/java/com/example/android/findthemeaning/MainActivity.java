@@ -3,6 +3,8 @@ package com.example.android.findthemeaning;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 word = searchArea.getText().toString();
 
+<<<<<<< HEAD
                 if(isASpecialCharacter(word)){
                     Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
                             .show();
@@ -56,6 +59,35 @@ public class MainActivity extends AppCompatActivity {
 //                new CallbackTask().execute(dictionaryEntries());
             }
         });
+=======
+                String res = dictionaryEntries();
+                if(res=="false"){
+                    Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else if(res=="No input"){
+                    Toast.makeText(getApplicationContext(), "Please enter a word", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else
+                    new CallbackTask().execute(res);
+            }
+        });
+    }
+
+    private String dictionaryEntries() {
+        final String language = "en";
+        final String word = searchArea.getText().toString();
+        if(TextUtils.isEmpty(word))
+            return "No input";
+        final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
+        for(int i=0;i<word_id.length();++i){
+            if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
+                return "false";
+            }
+        }
+        return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
+>>>>>>> 9a68587b04abf043357a8d9fa10971ea59eb70bf
     }
 
 
