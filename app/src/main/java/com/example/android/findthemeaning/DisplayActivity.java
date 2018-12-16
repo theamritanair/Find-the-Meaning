@@ -30,11 +30,14 @@ public class DisplayActivity extends AppCompatActivity {
     private Bundle bun;
     private String word_id;
 
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     @BindView(R.id.entries)
     RecyclerView recyclerView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

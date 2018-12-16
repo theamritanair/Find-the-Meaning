@@ -38,6 +38,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
     @NonNull
     @Override
     public WordView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
         return new WordView(LayoutInflater.from(context).inflate(R.layout.layout_item, viewGroup, false));
 
     }
@@ -54,7 +55,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
         Sense sense = entry.getSenses().get(0);
 
 
-        wordView.wordText.setText(word_id);
+
         wordView.definition.setText(sense.getDefinitions().get(0));
         wordView.lexical.setText(lexicalEntry.getLexicalCategory());
 
