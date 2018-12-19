@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FindTheMeaning</string>
+    <string name="api">Oxford Dictionaries API</string>
+    <string name="api_doc"><u>API Documentation</u></string>
 </resources>
