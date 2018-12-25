@@ -1,10 +1,14 @@
 package com.example.android.findthemeaning;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +19,11 @@ import butterknife.ButterKnife;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+
+
 import javax.net.ssl.HttpsURLConnection;
 import android.os.AsyncTask;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -29,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.searchButton)
     Button searchButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,43 @@ public class MainActivity extends AppCompatActivity {
                     new CallbackTask().execute(res);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about:
+                AlertDialog.Builder aboutDialog = new AlertDialog.Builder(MainActivity.this);
+                final View aboutDialogLayout = getLayoutInflater().inflate(R.layout.dialog_about, null);
+                final TextView docLink = (TextView) aboutDialogLayout.findViewById(R.id.doc_link);
+
+                aboutDialog.setView(aboutDialogLayout);
+
+                aboutDialog.setCancelable(true);
+                AlertDialog about = aboutDialog.create();
+                about.getWindow().setLayout(200,200);
+                about.show();
+
+                docLink.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.oxforddictionaries.com/documentation"));
+                        startActivity(browser);
+                    }
+
+                });
+
+        }
+        return true;
     }
 
     private String dictionaryEntries() {
