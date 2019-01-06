@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.findthemeaning.model.Exa;
@@ -36,6 +37,8 @@ public class DisplayActivity extends AppCompatActivity {
 
     @BindView(R.id.entries)
     RecyclerView recyclerView;
+
+
 
 
 
@@ -72,6 +75,7 @@ public class DisplayActivity extends AppCompatActivity {
                     mAdapter = new WordAdapter(result.getLexicalEntries(), context, word_id);
                     recyclerView.addItemDecoration(new DividerItemDecoration(context,
                             DividerItemDecoration.VERTICAL));
+
                     recyclerView.setAdapter(mAdapter);
 
                     progressBar.setVisibility(View.GONE);

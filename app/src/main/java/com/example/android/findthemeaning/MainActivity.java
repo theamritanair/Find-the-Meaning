@@ -46,117 +46,117 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 word = searchArea.getText().toString();
 
-<<<<<<< HEAD
-                if(isASpecialCharacter(word)){
+                if (isASpecialCharacter(word)) {
                     Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
                             .show();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                    intent.putExtra("key",word);
+                    intent.putExtra("key", word);
                     startActivity(intent);
                 }
 //                new CallbackTask().execute(dictionaryEntries());
             }
         });
-=======
-                String res = dictionaryEntries();
-                if(res=="false"){
-                    Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else if(res=="No input"){
-                    Toast.makeText(getApplicationContext(), "Please enter a word", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else
-                    new CallbackTask().execute(res);
-            }
-        });
     }
+//=======
+//                String res = dictionaryEntries();
+//                if(res=="false"){
+//                    Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//                else if(res=="No input"){
+//                    Toast.makeText(getApplicationContext(), "Please enter a word", Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//                else
+//                    new CallbackTask().execute(res);
+//            }
+//        });
+//    }
+//
+//    private String dictionaryEntries() {
+//        final String language = "en";
+//        final String word = searchArea.getText().toString();
+//        if(TextUtils.isEmpty(word))
+//            return "No input";
+//        final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
+//        for(int i=0;i<word_id.length();++i){
+//            if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
+//                return "false";
+//            }
+//        }
+//        return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
+//>>>>>>> 9a68587b04abf043357a8d9fa10971ea59eb70bf
+//    }
+//
+//
 
-    private String dictionaryEntries() {
-        final String language = "en";
-        final String word = searchArea.getText().toString();
-        if(TextUtils.isEmpty(word))
-            return "No input";
-        final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
-        for(int i=0;i<word_id.length();++i){
-            if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
-                return "false";
+    //
+////    private String dictionaryEntries() {
+////        final String language = "en";
+////        word = searchArea.getText().toString();
+////        final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
+////        return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
+////    }
+////
+////
+////    private class CallbackTask extends AsyncTask<String, Integer, String> {
+////
+////        @Override
+////        protected String doInBackground(String... params) {
+////
+////            //TODO: replace with your own app id and app key
+////            final String app_id = "fb3fc25c";
+////            final String app_key = "92e3e400116f3a4f74c580496c3fe82a";
+////            try {
+////                URL url = new URL(params[0]);
+////                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+////                urlConnection.setRequestProperty("Accept","application/json");
+////                urlConnection.setRequestProperty("app_id",app_id);
+////                urlConnection.setRequestProperty("app_key",app_key);
+////
+////                // read the output from the server
+////                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+////                StringBuilder stringBuilder = new StringBuilder();
+////
+////                String line = null;
+////                while ((line = reader.readLine()) != null) {
+////                    stringBuilder.append(line + "\n");
+////                }
+////
+////                return stringBuilder.toString();
+////
+////            }
+////            catch (Exception e) {
+////                e.printStackTrace();
+////                return e.toString();
+////            }
+////        }
+////
+////        @Override
+////        protected void onPostExecute(String result) {
+////            super.onPostExecute(result);
+////            Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+////            intent.putExtra("key",word);
+////            startActivity(intent);
+////        }
+////    }
+//
+//}
+    public boolean isASpecialCharacter(String word) {
+        int flag = 1;
+        for (int i = 0; i < word.length(); ++i) {
+            if (word.charAt(i) < 97 || word.charAt(i) > 122) {
+                flag = 0;
+            } else {
+                flag = 1;
             }
         }
-        return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
->>>>>>> 9a68587b04abf043357a8d9fa10971ea59eb70bf
-    }
-
-
-    public boolean isASpecialCharacter(String word){
-        int flag= 1;
-        for(int i=0;i<word.length();++i){
-            if(word.charAt(i)<97 || word.charAt(i)>122) {
-                flag=0;
-            }
-            else {
-                flag =1;
-            }
-        }
-        if(flag==0){
+        if (flag == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
-
-//    private String dictionaryEntries() {
-//        final String language = "en";
-//        word = searchArea.getText().toString();
-//        final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
-//        return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
-//    }
-//
-//
-//    private class CallbackTask extends AsyncTask<String, Integer, String> {
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//            //TODO: replace with your own app id and app key
-//            final String app_id = "fb3fc25c";
-//            final String app_key = "92e3e400116f3a4f74c580496c3fe82a";
-//            try {
-//                URL url = new URL(params[0]);
-//                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-//                urlConnection.setRequestProperty("Accept","application/json");
-//                urlConnection.setRequestProperty("app_id",app_id);
-//                urlConnection.setRequestProperty("app_key",app_key);
-//
-//                // read the output from the server
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//                StringBuilder stringBuilder = new StringBuilder();
-//
-//                String line = null;
-//                while ((line = reader.readLine()) != null) {
-//                    stringBuilder.append(line + "\n");
-//                }
-//
-//                return stringBuilder.toString();
-//
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//                return e.toString();
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//            super.onPostExecute(result);
-//            Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-//            intent.putExtra("key",word);
-//            startActivity(intent);
-//        }
-//    }
-
 }
