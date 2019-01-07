@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 import android.os.AsyncTask;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.searchButton)
     Button searchButton;
 
+    String language = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String res = dictionaryEntries();
-                if(res=="false"){
+                if(res=="false_eng"){
                     Toast.makeText(getApplicationContext(), "Not an English word", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else if(res=="false_hin"){
+                    Toast.makeText(getApplicationContext(), "यह एक हिंदी शब्द नहीं है।", Toast.LENGTH_SHORT)
                             .show();
                 }
                 else if(res=="No input"){
@@ -60,6 +68,38 @@ public class MainActivity extends AppCompatActivity {
                     new CallbackTask().execute(res);
             }
         });
+
+        RelativeLayout menu=(RelativeLayout) findViewById(R.id.langauge);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilterPopup(v);
+            }
+        });
+    }
+
+    private void showFilterPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        final TextView text=(TextView)findViewById(R.id.text);
+        popup.inflate(R.menu.lan_menu);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.i1:
+                        language = "en";
+                        text.setText("en");
+                        return true;
+                    case R.id.i2:
+                        language = "hi";
+                        text.setText("hi");
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popup.show();
     }
 
     @Override
@@ -100,14 +140,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String dictionaryEntries() {
-        final String language = "en";
         final String word = searchArea.getText().toString();
         if(TextUtils.isEmpty(word))
             return "No input";
         final String word_id = word.toLowerCase(); //word id is case sensitive and lowercase is required
-        for(int i=0;i<word_id.length();++i){
-            if(word_id.charAt(i)<97 || word_id.charAt(i)>122) {
-                return "false";
+        if(language == "en") {
+            for (int i = 0; i < word_id.length(); ++i) {
+                if (word_id.charAt(i) < 97 || word_id.charAt(i) > 122) {
+                    return "false_eng";
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < word_id.length(); ++i) {
+                if (word_id.charAt(i) < 0x0900 || word_id.charAt(i) > 0x097F) {
+                    return "false_hin";
+                }
             }
         }
         return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" + language + "/" + word_id;
