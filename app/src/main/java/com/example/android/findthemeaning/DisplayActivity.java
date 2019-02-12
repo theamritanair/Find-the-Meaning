@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.findthemeaning.model.Exa;
@@ -20,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DisplayActivity extends AppCompatActivity {
 
@@ -63,7 +63,7 @@ public class DisplayActivity extends AppCompatActivity {
         Call<Exa> dictionaryEntries = api.getExa(APP_ID, APP_KEY, word_id);
         dictionaryEntries.enqueue(new Callback<Exa>() {
             @Override
-            public void onResponse(Call<Exa> call, retrofit2.Response<Exa> response) {
+            public void onResponse(retrofit2.Call<Exa> call, Response<Exa> response) {
 
                 Exa info = response.body();
                 Result result = null;
@@ -82,13 +82,14 @@ public class DisplayActivity extends AppCompatActivity {
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
-            public void onFailure(Call<Exa> call, Throwable t) {
+            public void onFailure(retrofit2.Call<Exa> call, Throwable t) {
                 Toast.makeText(DisplayActivity.this,"Error :(",Toast.LENGTH_SHORT);
+
             }
+
         });
     }
 
