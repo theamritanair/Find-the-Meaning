@@ -30,6 +30,7 @@ public class DisplayActivity extends AppCompatActivity {
     private Context context;
     private Bundle bun;
     private String word_id;
+    private String languageSelected;
 
 
     @BindView(R.id.progressBar)
@@ -50,28 +51,39 @@ public class DisplayActivity extends AppCompatActivity {
         context = this;
         try {
             bun = getIntent().getExtras();
-            word_id = bun.getString("key");
+            word_id = bun.getString("word_searched");
+            languageSelected = bun.getString("language");
             Log.i("BUNDLE DATA", word_id);
+            Log.i("Language Selected: ",languageSelected);
         }catch (Exception e){
             e.printStackTrace();
         }
-        naacho();
+        fetchTheMeaning();
     }
 
-    public void naacho(){
+    public void fetchTheMeaning(){
         Api api = ApiClient.getClient().create(Api.class);
-        Call<Exa> dictionaryEntries = api.getExa(APP_ID, APP_KEY, word_id);
+        Call<Exa> dictionaryEntries = api.getExa(APP_ID, APP_KEY, languageSelected,word_id);
         dictionaryEntries.enqueue(new Callback<Exa>() {
             @Override
             public void onResponse(retrofit2.Call<Exa> call, Response<Exa> response) {
 
                 Exa info = response.body();
+                int code = response.code();
+                if (code == 404) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "No entry is found", Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Internal Error. An error occurred while processing the data.", Toast.LENGTH_SHORT);
+
+                }else{
                 Result result = null;
                 try {
                     result = info.getResults().get(0);
-                    Log.i("KEY",bun.getString("key"));
-                    Log.i("LEXICAL ENTRIES", Arrays.asList(result.getLexicalEntries())
-                            .toString());
+                    Log.i("KEY", bun.getString("word_searched"));
+//                    Log.i("LEXICAL ENTRIES", Arrays.asList(result.getLexicalEntries())
+//                            .toString());
                     mAdapter = new WordAdapter(result.getLexicalEntries(), context, word_id);
                     recyclerView.addItemDecoration(new DividerItemDecoration(context,
                             DividerItemDecoration.VERTICAL));
@@ -82,6 +94,7 @@ public class DisplayActivity extends AppCompatActivity {
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
+            }
             }
 
             @Override

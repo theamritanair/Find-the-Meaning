@@ -14,9 +14,10 @@ public interface Api {
 
     String BASE_URL = "https://od-api.oxforddictionaries.com/api/v1/";
 
-    @GET("entries/en/{word_id}")
+    @GET("entries/{lan}/{word_id}")
     Call<Exa> getExa(@Header("app_id") String id,
                                               @Header("app_key") String key,
+                                              @Path("lan") String language,
                                               @Path("word_id") String word_id);
 
 
