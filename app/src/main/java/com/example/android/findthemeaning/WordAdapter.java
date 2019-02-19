@@ -55,7 +55,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
         Sense sense = entry.getSenses().get(0);
 
 
-        wordView.wordText.setText(word_id);
+//        wordView.wordText.setText(word_id);
         wordView.definition.setText(sense.getDefinitions().get(0));
         wordView.lexical.setText(lexicalEntry.getLexicalCategory());
 
@@ -71,7 +71,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
     static class WordView extends RecyclerView.ViewHolder {
         TextView definition;
         TextView lexical;
-        TextView wordText;
+//        TextView wordText;
 
 
         public WordView(View v) {
@@ -79,7 +79,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordView> {
 
             this.definition = v.findViewById(R.id.definition);
             this.lexical = v.findViewById(R.id.lexical);
-            this.wordText = v.findViewById(R.id.word);
+//            this.wordText = v.findViewById(R.id.word);
         }
     }
 }

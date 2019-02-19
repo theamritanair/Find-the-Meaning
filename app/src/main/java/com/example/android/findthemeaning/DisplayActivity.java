@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.findthemeaning.model.Exa;
@@ -35,6 +36,8 @@ public class DisplayActivity extends AppCompatActivity {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.word)
+    TextView wordText;
 
     @BindView(R.id.entries)
     RecyclerView recyclerView;
@@ -82,6 +85,7 @@ public class DisplayActivity extends AppCompatActivity {
                 try {
                     result = info.getResults().get(0);
                     Log.i("KEY", bun.getString("word_searched"));
+                    wordText.setText(word_id);
 //                    Log.i("LEXICAL ENTRIES", Arrays.asList(result.getLexicalEntries())
 //                            .toString());
                     mAdapter = new WordAdapter(result.getLexicalEntries(), context, word_id);
